@@ -1,0 +1,46 @@
+collections_config:
+  pages:
+    path: gunspin
+    name: Pages
+    icon: wysiwyg
+  build:
+    path: gunspin/Build
+    name: Build
+    icon: build
+    glob:
+      - '!_index.md'
+  patch_4j:
+    path: gunspin/patch/4j
+    name: Patch 4j
+    icon: watch
+    glob:
+      - '!_index.md'
+  patch_json:
+    path: gunspin/patch/json
+    name: Patch Json
+    icon: anchor
+    glob:
+      - '!_index.md'
+paths:
+  static: static
+  uploads: static/uploads
+timezone: America/Denver
+markdown:
+  engine: commonmark
+  options:
+    gfm: true
+    linkify: false
+    table: false
+    strikethrough: false
+    subscript: false
+    superscript: false
+    heading_ids: false
+    breaks: false
+    xhtml: false
+    attributes: false
+    typographer: false
+    treat_indentation_as_code: true
+_snippets_imports:
+  hugo:
+    exclude:
+      - hugo_instagram
