@@ -6,4 +6,6 @@ so please check out the website, fork your own version and see what we are all a
 ALSO, if the main link does not work here are all the links I made so far other than the main link
 https://boredom-hub-v1-1.onrender.com/
 https://boredom-hubv1.vercel.app/
+https://boredom-hub-v1-git-main-chicken-man-turkeys-projects.vercel.app/
+https://boredom-hub.chronosdv.com/
 
