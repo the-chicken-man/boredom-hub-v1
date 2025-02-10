@@ -1,0 +1,54 @@
+class RabbitChatbot {
+    constructor() {
+        this.responses = {
+            "hello": "Hey there! I'm Rabbit, your AI chatbot! 🐰",
+            "how are you": "I'm just a bunch of code, but I'm feeling pretty smart today! 😎",
+            "what's your name": "I'm Rabbit! Quick, clever, and always ready to chat!",
+            "bye": "See ya later! Hop by anytime! 🐇",
+            "default": "Hmm... I don't know how to respond to that. Try asking something else!"
+        };
+        this.initChatUI();
+    }
+
+    getResponse(message) {
+        message = message.toLowerCase();
+        return this.responses[message] || this.responses["default"];
+    }
+
+    initChatUI() {
+        const chatContainer = document.createElement("div");
+        chatContainer.id = "rabbit-chat";
+        chatContainer.innerHTML = `
+            <div id="chat-box"></div>
+            <input type="text" id="chat-input" placeholder="Type a message..." />
+            <button id="send-btn">Send</button>
+        `;
+        document.body.appendChild(chatContainer);
+
+        const chatBox = document.getElementById("chat-box");
+        const chatInput = document.getElementById("chat-input");
+        const sendBtn = document.getElementById("send-btn");
+
+        sendBtn.addEventListener("click", () => this.handleMessage(chatInput, chatBox));
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") this.handleMessage(chatInput, chatBox);
+        });
+    }
+
+    handleMessage(chatInput, chatBox) {
+        const userMessage = chatInput.value.trim();
+        if (!userMessage) return;
+        
+        chatBox.innerHTML += `<div class='user-msg'>You: ${userMessage}</div>`;
+        setTimeout(() => {
+            const botResponse = this.getResponse(userMessage);
+            chatBox.innerHTML += `<div class='bot-msg'>Rabbit: ${botResponse}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 500);
+        
+        chatInput.value = "";
+    }
+}
+
+// Start Rabbit when the page loads
+document.addEventListener("DOMContentLoaded", () => new RabbitChatbot());
