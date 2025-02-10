@@ -1,54 +1,118 @@
-class RabbitChatbot {
-    constructor() {
-        this.responses = {
-            "hello": "Hey there! I'm Rabbit, your AI chatbot! 🐰",
-            "how are you": "I'm just a bunch of code, but I'm feeling pretty smart today! 😎",
-            "what's your name": "I'm Rabbit! Quick, clever, and always ready to chat!",
-            "bye": "See ya later! Hop by anytime! 🐇",
-            "default": "Hmm... I don't know how to respond to that. Try asking something else!"
-        };
-        this.initChatUI();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rabbit AI - Boredom Hub</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/4/4d/Shrek_%28character%29.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.4.0/math.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: purple;
+      font-family: 'Anton', sans-serif;
+      color: white;
+      text-align: center;
     }
 
-    getResponse(message) {
-        message = message.toLowerCase();
-        return this.responses[message] || this.responses["default"];
+    nav {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
     }
 
-    initChatUI() {
-        const chatContainer = document.createElement("div");
-        chatContainer.id = "rabbit-chat";
-        chatContainer.innerHTML = `
-            <div id="chat-box"></div>
-            <input type="text" id="chat-input" placeholder="Type a message..." />
-            <button id="send-btn">Send</button>
-        `;
-        document.body.appendChild(chatContainer);
-
-        const chatBox = document.getElementById("chat-box");
-        const chatInput = document.getElementById("chat-input");
-        const sendBtn = document.getElementById("send-btn");
-
-        sendBtn.addEventListener("click", () => this.handleMessage(chatInput, chatBox));
-        chatInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") this.handleMessage(chatInput, chatBox);
-        });
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.5rem;
     }
 
-    handleMessage(chatInput, chatBox) {
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
-        
-        chatBox.innerHTML += `<div class='user-msg'>You: ${userMessage}</div>`;
-        setTimeout(() => {
-            const botResponse = this.getResponse(userMessage);
-            chatBox.innerHTML += `<div class='bot-msg'>Rabbit: ${botResponse}</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 500);
-        
-        chatInput.value = "";
+    nav a:hover {
+      text-decoration: underline;
     }
-}
 
-// Start Rabbit when the page loads
-document.addEventListener("DOMContentLoaded", () => new RabbitChatbot());
+    h1 {
+      margin-top: 50px;
+      font-size: 4rem;
+    }
+
+    .chat-container {
+      margin-top: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      background-color: orange;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .response {
+      margin-top: 20px;
+      color: #ffeb3b;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="vortex.html">Vortex</a>
+    <a href="rabbit/rabbit code.html">Rabbit AI</a>
+  </nav>
+  
+  <h1>Rabbit AI</h1>
+  <p>Ask me anything!</p>
+
+  <div class="chat-container">
+    <input type="text" id="userInput" placeholder="Ask me a question or give me a math problem...">
+    <button onclick="processInput()">Ask</button>
+    <div class="response" id="response"></div>
+  </div>
+
+  <script>
+    function processInput() {
+      const userInput = document.getElementById('userInput').value;
+      const responseDiv = document.getElementById('response');
+      
+      if (userInput.trim() === "") {
+        responseDiv.textContent = "Please ask a question.";
+        return;
+      }
+
+      // Check if it's a math equation
+      try {
+        const result = math.evaluate(userInput);
+        responseDiv.textContent = `Answer: ${result}`;
+      } catch (e) {
+        // If not a math equation, treat it as a regular question
+        responseDiv.textContent = `Sorry, I don't have a complex answer for that yet! But I will keep learning.`;
+      }
+    }
+  </script>
+</body>
+</html>
