@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Fact Generator - Boredom Hub</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/4/4d/Shrek_%28character%29.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: purple;
+      font-family: 'Anton', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.5rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin-top: 50px;
+      font-size: 4rem;
+    }
+
+    .fact-container {
+      margin-top: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: orange;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .fact {
+      margin-top: 20px;
+      color: #ffeb3b;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="vortex.html">Vortex</a>
+    <a href="randomfact.html">Random Fact Generator</a>
+  </nav>
+  
+  <h1>Random Fact Generator</h1>
+  <p>Click the button to discover a random fact!</p>
+
+  <div class="fact-container">
+    <button onclick="generateFact()">Get Random Fact</button>
+    <div class="fact" id="factDisplay"></div>
+  </div>
+
+  <script>
+    const facts = [
+      "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old!",
+      "Bananas are berries, but strawberries are not!",
+      "The Eiffel Tower can be 15 cm taller during the summer due to the expansion of the metal.",
+      "A single bolt of lightning contains enough energy to cook 100,000 slices of toast.",
+      "Octopuses have three hearts and blue blood!",
+      "There are more stars in the universe than grains of sand on all of Earth's beaches.",
+      "The longest hiccuping spree lasted 68 years!",
+      "Sharks have been around longer than trees – sharks have existed for more than 400 million years.",
+      "Wombat poop is cube-shaped to prevent it from rolling away.",
+      "In space, astronauts' height can increase by up to 2 inches due to the lack of gravity!",
+      "The word ‘nerd’ was first coined by Dr. Seuss in 1950.",
+      "A day on Venus is longer than a year on Venus.",
+      "A giraffe’s neck contains the same number of vertebrae as a human’s neck.",
+      "The longest time between two twins being born is 87 days.",
+      "A baby octopus is about the size of a flea when it is born.",
+      "A sneeze can travel about 100 miles per hour.",
+      "The longest word in the English language is 189,819 letters long and refers to a protein known as Titin.",
+      "Sloths can hold their breath for up to 40 minutes underwater.",
+      "There’s a jellyfish known as Turritopsis dohrnii that is biologically immortal.",
+      "Butterflies taste with their feet.",
+      "The longest hiccuping spree lasted 68 years!",
+      "A full head of human hair is strong enough to support the weight of two elephants.",
+      "A crocodile cannot stick its tongue out.",
+      "The Eiffel Tower can be 15 cm taller during the summer due to the expansion of the metal.",
+      "A group of flamingos is called a ‘flamboyance.’",
+      "It’s illegal to own just one guinea pig in Switzerland because they get lonely.",
+      "Cleopatra lived closer in time to the first Moon landing than to the construction of the Great Pyramid.",
+      "A cloud can weigh more than a million pounds.",
+      "The longest recorded flight of a chicken is 13 seconds.",
+      "In Japan, there’s a train station that’s named after a cat.",
+      "Peanuts are not nuts; they are legumes.",
+      "A narwhal’s tusk is actually an elongated tooth.",
+      "The first computer virus was created in 1983.",
+      "Cows have best friends and can get stressed when separated.",
+      "The Guinness Book of World Records holds its own record for being the book most often stolen from public libraries.",
+      "In 2006, an asteroid the size of a refrigerator passed within 26,000 miles of Earth.",
+      "Venus is the hottest planet in our solar system, even though Mercury is closer to the Sun.",
+      "Wombats have cube-shaped poop.",
+      "There are more fake flamingos in the world than real ones.",
+      "A flock of crows is called a murder.",
+      "An ant can lift 50 times its body weight.",
+      "There are 10 times more bacteria in your body than human cells.",
+      "Cows can hear sounds in the same frequency range as humans, but they can’t hear higher frequencies.",
+      "A bolt of lightning can be hotter than the surface of the sun.",
+      "There are more stars in the universe than there are grains of sand on all the Earth’s beaches.",
+      "An ostrich’s eye is bigger than its brain.",
+      "Bananas are radioactive due to their potassium content.",
+      "A shrimp’s heart is located in its head.",
+      "Some turtles can breathe through their butts.",
+      "Sharks have been around longer than trees.",
+      "The average person spends 6 months of their life waiting for red lights to turn green.",
+      "An airplane can get struck by lightning 100 times during its lifetime.",
+      "The human nose can distinguish at least 1 trillion different scents.",
+      "The average cloud weighs about 1 million pounds.",
+      "A panda's diet consists almost entirely of bamboo, but they are members of the carnivorous order.",
+      "A volcano can produce lightning.",
+      "It rains diamonds on Jupiter and Saturn.",
+      "Elephants are the only animals that can't jump.",
+      "The shortest war in history was between Britain and Zanzibar on August 27, 1896. It lasted only 38 minutes.",
+      "The longest time someone has ever survived without food is 382 days.",
+      "The first recorded use of a toilet paper was in China in the 6th century AD.",
+      "Some species of fish can walk on land.",
+      "In the United States, it’s illegal to hunt camels.",
+      "Sloths can rotate their heads up to 270 degrees.",
+      "A quarter has 119 ridges around its edge.",
+      "Penguins mate for life.",
+      "The lifespan of a single taste bud is about 10 days.",
+      "The longest wedding veil was the same length as 63.5 football fields.",
+      "You can’t hum while holding your nose.",
+      "Turtles can breathe through their butts.",
+      "A full moon is 14% bigger and 30% brighter than a regular moon.",
+      "There’s a species of jellyfish that is essentially immortal.",
+      "A blue whale's heart is the size of a small car.",
+      "A chef’s hat has 100 folds, representing the 100 ways to cook an egg.",
+      "It takes 8 minutes and 20 seconds for light to travel from the Sun to Earth.",
+      "The Mona Lisa doesn’t have eyebrows.",
+      "Cows can produce up to 6 gallons of milk a day.",
+      "Humans share 60% of their DNA with bananas.",
+      "The only letter that doesn’t appear in any U.S. state name is the letter Q.",
+      "The Earth’s core is as hot as the surface of the sun.",
+      "A comet’s tail always points away from the sun, regardless of the comet's direction of travel.",
+      "The shortest commercial flight in the world lasts just 57 seconds.",
+      "Walt Disney holds the record for the most Oscars won by a single individual, with 22 awards.",
+      "Butterflies taste with their feet.",
+      "Some cats are allergic to humans.",
+      "The human stomach gets a new lining every few days to prevent it from digesting itself.",
+      "In France, it is illegal to name a pig Napoleon.",
+      "A crocodile cannot stick its tongue out.",
+      "The longest hiccuping spree lasted 68 years!",
+      "A giraffe's tongue can be up to 18 inches long.",
+      "A sneeze can travel at 100 miles per hour.",
+      "The smell of freshly-cut grass is actually a plant distress call.",
+      "A day on Venus is longer than a year on Venus."
+    ];
+
+    function generateFact() {
+      const randomFact = facts[Math.floor(Math.random() * facts.length)];
+      document.getElementById('factDisplay').textContent = randomFact;
+    }
+  </script>
+</body>
+</html>
